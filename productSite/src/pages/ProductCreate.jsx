@@ -43,84 +43,73 @@ export default function ProductCreate () {
     }
 
     return (
-        <>
-            <nav>
-                <ol>
-                    <li>
+        <div>
+            <nav aria-label="breadcrumb" className="mb-3">
+                <ol className="breadcrumb mb-0">
+                    <li className="breadcrumb-item">
                         <Link to="/products">Products</Link>
                     </li>
-                    <li>
+                    <li className="breadcrumb-item active" aria-current="page">
                         Create
                     </li>
                 </ol>
             </nav>
-            <h1>New Product</h1>
-            {error}
 
-            <form
-                onSubmit={onSubmit}
-                className="mx-auto"
-                style={{maxWidth:'32rem'}}
-            >
-                <div className="mb-3">
-                    <label
-                        htmlFor="name"
-                        className="form-label"
-                    >Name</label>
-                <input
-                    id="name"
-                    name="name"
-                    className="form-control"
-                    value={form.name}
-                    onChange={onChange}
-                    required
-                    maxLength={200}
-                />
+            <h1 className="h3 mb-4">New product</h1>
+
+            {error && (
+                <div className="alert alert-danger" role="alert">
+                    {error}
                 </div>
+            )}
 
+            <form onSubmit={onSubmit} className="mx-auto" style={{ maxWidth: '32rem' }}>
                 <div className="mb-3">
-                    <label
-                        htmlFor="description"
-                        className="form-label"
-                    >
-                        Description
+                    <label className="form-label" htmlFor="name">
+                        Name <span className="text-danger">*</span>
                     </label>
                     <input
+                        id="name"
+                        name="name"
+                        className="form-control"
+                        value={form.name}
+                        onChange={onChange}
+                        required
+                        maxLength={200}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="description">
+                        Description
+                    </label>
+                    <textarea
                         id="description"
                         name="description"
                         className="form-control"
+                        rows={3}
                         value={form.description}
                         onChange={onChange}
-                        required
                         maxLength={2000}
                     />
                 </div>
-
                 <div className="mb-3">
-                    <label
-                        htmlFor="price"
-                        className="form-label"
-                    >
-                        Price
+                    <label className="form-label" htmlFor="price">
+                        Price <span className="text-danger">*</span>
                     </label>
                     <input
                         id="price"
                         name="price"
                         type="number"
+                        step="0.01"
+                        min="0.01"
                         className="form-control"
                         value={form.price}
                         onChange={onChange}
                         required
-                        step="0.01"
-                        min="0.01"
                     />
                 </div>
-
                 <div className="mb-3">
-                    <label
-                        htmlFor="category"
-                        className="form-label"
-                    >
+                    <label className="form-label" htmlFor="category">
                         Category
                     </label>
                     <input
@@ -133,27 +122,27 @@ export default function ProductCreate () {
                     />
                 </div>
                 <div className="mb-4">
-                    <label
-                        htmlFor="image"
-                        className="form-label"
-                    >
+                    <label className="form-label" htmlFor="image">
                         Image
                     </label>
                     <input
-                    id="image"
-                    name="image"
-                    type="file"
-                    accept="image/*"
-                    className="form-control"
-                    onChange={(e)=> setFile(e.target.files?.[0] || null)}/>
+                        id="image"
+                        type="file"
+                        accept="image/*"
+                        className="form-control"
+                        onChange={(e) => setFile(e.target.files?.[0] || null)}
+                    />
+                    <div className="form-text">Uploaded to AWS S3 when configured. Optional for local demo.</div>
                 </div>
                 <div className="d-flex gap-2">
-                    <button type="submt" className="btn btn-primary">
-                        {loading ? 'Saving...' : 'Create'}
+                    <button type="submit" className="btn btn-primary" disabled={loading}>
+                        {loading ? 'Saving…' : 'Create'}
                     </button>
+                    <Link to="/products" className="btn btn-outline-secondary">
+                        Cancel
+                    </Link>
                 </div>
-
             </form>
-        </>
+        </div>
     )
 }

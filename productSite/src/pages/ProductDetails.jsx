@@ -62,56 +62,49 @@ export default function ProductDetails () {
     )
 
     return (
-       <>
-           <nav aria-label="breadcrumb" className="mb-3">
-               <ol className="breadcrumb mb-0">
-                   <li className="breadcrumb-item">
-                       <Link to="/products">
-                           Products
-                       </Link>
-                   </li>
-                   <li className="breadcrumb-item active" aria-current="page">
-                       {product.name}
-                   </li>
-               </ol>
-           </nav>
-           <div className="row g-4">
-               <div className="col-md-5">
-                   <div
-                       className="ratio ratio-1x1 bg-light rounded shadow-sm overflow-hidden"
-                   >
-                       <img
-                           src={product.imageUrl || PLACEHOLDER_IMAGE}
-                           className="object-fit-contain"
-                           alt=""
-                           style={{objectFit: 'contain'}}
-                           onError={(e=>{
-                               e.currentTarget.src = PLACEHOLDER_IMAGE;
-                           })}
-                       />
-                   </div>
-               </div>
-               <div className="col-md-7">
-                   <h1 className="h2 mb-2">{product.name}</h1>
-                   <p className="text-muted mb-3">{product.category || "No category"}</p>
-                   <p className="display-6 text-primary mb-4">
-                       ${Number(product.price).toFixed(2)}
-                   </p>
-                   <h2 className="h5">Description</h2>
-                   <p className="mb-4">{product.description || "-"}</p>
-                   <p className="small">Created: {formatDate(product.createAt)}</p>
-                   <Link
-                       to={`/products/edit/${id}`}
-                       className="btn btn-primary ">
-                        Edit
-                   </Link>
-                   <Link
-                       to={`/products`}
-                       className="btn btn-outline-secondary ">
-                       Back to products
-                   </Link>
-               </div>
-           </div>
-       </>
+        <div>
+            <nav aria-label="breadcrumb" className="mb-3">
+                <ol className="breadcrumb mb-0">
+                    <li className="breadcrumb-item">
+                        <Link to="/products">Products</Link>
+                    </li>
+                    <li className="breadcrumb-item active" aria-current="page">
+                        {product.name}
+                    </li>
+                </ol>
+            </nav>
+
+            <div className="row g-4">
+                <div className="col-md-5">
+                    <div className="ratio ratio-1x1 bg-light rounded shadow-sm overflow-hidden">
+                        <img
+                            src={product.imageUrl || PLACEHOLDER_IMAGE}
+                            alt=""
+                            className="object-fit-contain"
+                            style={{ objectFit: 'contain' }}
+                            onError={(e) => {
+                                e.currentTarget.src = PLACEHOLDER_IMAGE
+                            }}
+                        />
+                    </div>
+                </div>
+                <div className="col-md-7">
+                    <h1 className="h2 mb-2">{product.name}</h1>
+                    <p className="text-muted mb-3">{product.category || 'No category'}</p>
+                    <p className="display-6 text-primary mb-4">${Number(product.price).toFixed(2)}</p>
+                    <h2 className="h5">Description</h2>
+                    <p className="mb-4">{product.description || '—'}</p>
+                    <p className="small text-muted mb-4">Created: {formatDate(product.createdAt)}</p>
+                    <div className="d-flex flex-wrap gap-2">
+                        <Link to={`/products/edit/${product.id}`} className="btn btn-primary">
+                            Edit
+                        </Link>
+                        <Link to="/products" className="btn btn-outline-secondary">
+                            Back to list
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }

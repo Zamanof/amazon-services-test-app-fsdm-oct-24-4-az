@@ -49,71 +49,66 @@ export default function ProductList () {
         );
     }
     return (
-       <>
-           <div className="d-flex flex-wrap align-items-center justify-content-between
-           gap-2 mb-4">
-               <h1 className="h3 mb-0">Products</h1>
-               <Link
-                   to='/products/create'
-                   className="btn btn-primary">
-                   New Product
-               </Link>
-           </div>
+        <div>
+            <div className="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-4">
+                <h1 className="h3 mb-0">Products</h1>
+                <Link to="/products/create" className="btn btn-primary">
+                    New product
+                </Link>
+            </div>
 
-           {error && (
-               <div className="alert alert-danger" role="alert">
-                   {error}
-               </div>
-           )}
-           {products.length === 0?(
-               <p className="text-muted">Not products yet. Create one to get started</p>
-           ):(<div className="row g-4">
-               {products.map((product) => (
-                   <div key={product.id} className="col-sm-6 col-lg-4">
-                       <div className="card h-100 shadow">
-                           <div className="ratio ratio-4x3 bg-light">
-                                <Link to={`/products/${product.id}`}>
-                                    <img
-                                        alt={product.name}
-                                        className="w-100 h-100"
-                                        src={product.imageUrl || PLACEHOLDER_IMAGE}
-                                    style={{objectFit: "cover"}}
-                                    onError={(e)=>{
-                                        e.currentTarget.src = PLACEHOLDER_IMAGE
-                                    } }/>
-                                </Link>
-                           </div>
-                           <div className="card-body d-flex flex-column">
-                               <h2 className="card-title h5">
-                                   <Link to={`/products/${product.id}`}
-                                   className="text-decoration-none text-body">
-                                       {product.name}
-                                   </Link>
-                               </h2>
-                           </div>
-                           <p className="text-muted small mb-2">
-                               {product.category || '-'}
-                           </p>
-                           <p className="fw-semibold text-primary mb-3">
-                               ${Number(product.price).toFixed(2)}
-                           </p>
-                           <div className="mt-auto d-flex gap-2">
-                               <Link to={`/products/edit/${product.id}`}
-                               className="btn btn-outline-secondary btn-sm">
-                                   Edit
-                               </Link>
-                               <button
-                                   type="button"
-                                   className="btn btn-outline-danger btn-sm"
-                                   onClick={() => handleDelete(product.id, product.name)}>
-                               Delete
-                           </button>
-                           </div>
+            {error && (
+                <div className="alert alert-danger" role="alert">
+                    {error}
+                </div>
+            )}
 
-                       </div>
-                   </div>
-               ))}
-           </div>)}
-       </>
+            {products.length === 0 ? (
+                <p className="text-muted">No products yet. Create one to get started.</p>
+            ) : (
+                <div className="row g-4">
+                    {products.map((p) => (
+                        <div key={p.id} className="col-sm-6 col-lg-4">
+                            <div className="card h-100 shadow-sm">
+                                <div className="ratio ratio-4x3 bg-light">
+                                    <Link to={`/products/${p.id}`} className="d-block h-100 w-100">
+                                        <img
+                                            src={p.imageUrl || PLACEHOLDER_IMAGE}
+                                            alt=""
+                                            className="w-100 h-100"
+                                            style={{ objectFit: 'cover' }}
+                                            onError={(e) => {
+                                                e.currentTarget.src = PLACEHOLDER_IMAGE
+                                            }}
+                                        />
+                                    </Link>
+                                </div>
+                                <div className="card-body d-flex flex-column">
+                                    <h2 className="card-title h5">
+                                        <Link to={`/products/${p.id}`} className="text-decoration-none text-body">
+                                            {p.name}
+                                        </Link>
+                                    </h2>
+                                    <p className="text-muted small mb-2">{p.category || '—'}</p>
+                                    <p className="fw-semibold text-primary mb-3">${Number(p.price).toFixed(2)}</p>
+                                    <div className="mt-auto d-flex gap-2">
+                                        <Link to={`/products/edit/${p.id}`} className="btn btn-outline-secondary btn-sm">
+                                            Edit
+                                        </Link>
+                                        <button
+                                            type="button"
+                                            className="btn btn-outline-danger btn-sm"
+                                            onClick={() => handleDelete(p.id, p.name)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
     )
 }
