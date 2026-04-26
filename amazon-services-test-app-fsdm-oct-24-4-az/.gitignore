@@ -1,12 +1,3 @@
-**/bin/
-**/obj/
-**/publish/
-**/node_modules/
-**/.vs/
-
-# Optional local environment files
-.env
-.env.*
 bin/
 obj/
 .vs/
