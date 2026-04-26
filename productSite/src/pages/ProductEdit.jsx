@@ -1,29 +1,31 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { getAllProducts, updateProduct } from '../api/product.js'
+import {getAllProducts, getProductById, updateProduct} from '../api/product.js'
 
 export default function ProductEdit() {
     const { id } = useParams()
     const navigate = useNavigate()
-    const [form, setForm] = useState({ name: '', description: '', price: '', category: '' })
+    const [form, setForm] = useState({ name: '', description: '', price: '', category: '', discountStart:'', discountEnd:'' })
     const [file, setFile] = useState(null)
     const [loading, setLoading] = useState(true)
     const [saving, setSaving] = useState(false)
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        let cancelled = false
-        ;(async () => {
+        let cancelled = false;
+        (async () => {
             setLoading(true)
             setError(null)
             try {
-                const p = await getAllProducts(id)
+                const p = await getProductById(id)
                 if (cancelled) return
                 setForm({
                     name: p.name || '',
                     description: p.description || '',
                     price: String(p.price ?? ''),
                     category: p.category || '',
+                    discountStart: p.discountStart || '',
+                    discountEnd: p.discountEnd || '',
                 })
             } catch (e) {
                 if (!cancelled) setError(e.message || 'Product not found')
@@ -45,11 +47,26 @@ export default function ProductEdit() {
         e.preventDefault()
         setSaving(true)
         setError(null)
+
+        if((form.discountStart && !form.discountEnd) || (!form.discountStart && form.discountEnd)){
+            setError("Set both discount dates or leave both empty!");
+            setLoading(false);
+            return;
+        }
+
+        if(form.discountStart && form.discountEnd && form.discountStart >= form.discountEnd){
+            setError("Discount start must be before discount end!");
+        }
+
         const fd = new FormData()
         fd.append('Name', form.name.trim())
         fd.append('Description', form.description)
         fd.append('Price', String(form.price))
         fd.append('Category', form.category)
+
+        fd.append('DiscountStart', new Date(form.discountStart).toISOString());
+        fd.append('DiscountEnd', new Date(form.discountEnd).toISOString());
+
         if (file) fd.append('Image', file)
         try {
             await updateProduct(id, fd)
@@ -151,6 +168,33 @@ export default function ProductEdit() {
                         value={form.category}
                         onChange={onChange}
                         maxLength={100}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="discountStart">
+                        Discount Start
+                    </label>
+                    <input
+                        id="discountStart"
+                        name="discountStart"
+                        type="datetime-local"
+                        className="form-control"
+                        value={form.discountStart}
+                        onChange={onChange}
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="discountEnd">
+                        Discount Start
+                    </label>
+                    <input
+                        id="discountEnd"
+                        name="discountEnd"
+                        type="datetime-local"
+                        className="form-control"
+                        value={form.discountEnd}
+                        onChange={onChange}
                     />
                 </div>
                 <div className="mb-4">

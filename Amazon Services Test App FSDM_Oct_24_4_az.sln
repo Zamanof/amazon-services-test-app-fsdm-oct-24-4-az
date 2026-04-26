@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amazon Services Test App FSDM_Oct_24_4_az", "Amazon Services Test App FSDM_Oct_24_4_az.csproj", "{D5B7FEDA-9F29-893F-968A-7AC4C610DF68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp", "..\MyApp\MyApp.csproj", "{8FC72577-C5EC-4D5A-9AE1-ECA89B725BCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D5B7FEDA-9F29-893F-968A-7AC4C610DF68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5B7FEDA-9F29-893F-968A-7AC4C610DF68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5B7FEDA-9F29-893F-968A-7AC4C610DF68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5B7FEDA-9F29-893F-968A-7AC4C610DF68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FC72577-C5EC-4D5A-9AE1-ECA89B725BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FC72577-C5EC-4D5A-9AE1-ECA89B725BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FC72577-C5EC-4D5A-9AE1-ECA89B725BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FC72577-C5EC-4D5A-9AE1-ECA89B725BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE65CD3D-BD06-488B-A388-6B9968CF2CBD}
+	EndGlobalSection
+EndGlobal

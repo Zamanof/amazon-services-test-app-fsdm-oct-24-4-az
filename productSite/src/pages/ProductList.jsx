@@ -91,6 +91,18 @@ export default function ProductList () {
                                     </h2>
                                     <p className="text-muted small mb-2">{p.category || '—'}</p>
                                     <p className="fw-semibold text-primary mb-3">${Number(p.price).toFixed(2)}</p>
+                                    <p className="text-muted">
+                                        <strong>Discount: </strong>{" "}
+                                        {p.isDiscountActive ? (
+                                            <span className="badge text-bg-success">
+                                                Active
+                                            </span>
+                                            ):(
+                                            <span className="badge text-bg-secondary">
+                                                Inactive
+                                            </span>
+                                        )}
+                                    </p>
                                     <div className="mt-auto d-flex gap-2">
                                         <Link to={`/products/edit/${p.id}`} className="btn btn-outline-secondary btn-sm">
                                             Edit

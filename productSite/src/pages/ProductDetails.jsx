@@ -95,6 +95,20 @@ export default function ProductDetails () {
                     <h2 className="h5">Description</h2>
                     <p className="mb-4">{product.description || '—'}</p>
                     <p className="small text-muted mb-4">Created: {formatDate(product.createdAt)}</p>
+
+                    <p className="text-muted">
+                        <strong>Discount: </strong>{" "}
+                        {product.isDiscountActive ? (
+                            <span className="badge text-bg-success">
+                                Active
+                            </span>
+                        ):(
+                            <span className="badge text-bg-secondary">
+                                Inactive
+                            </span>
+                        )}
+                    </p>
+
                     <div className="d-flex flex-wrap gap-2">
                         <Link to={`/products/edit/${product.id}`} className="btn btn-primary">
                             Edit

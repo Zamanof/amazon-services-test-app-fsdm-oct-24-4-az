@@ -7,6 +7,8 @@ const empty = {
     price:'',
     description:'',
     category:'',
+    discountStart:'',
+    discountEnd:'',
 }
 export default function ProductCreate () {
     const navigate = useNavigate();
@@ -23,11 +25,25 @@ export default function ProductCreate () {
         e.preventDefault();
         setLoading(true);
         setError(null);
+
+        if((form.discountStart && !form.discountEnd) || (!form.discountStart && form.discountEnd)){
+            setError("Set both discount dates or leave both empty!");
+            setLoading(false);
+            return;
+        }
+
+        if(form.discountStart && form.discountEnd && form.discountStart >= form.discountEnd){
+            setError("Discount start must be before discount end!");
+        }
+
         const fd = new FormData();
         fd.append('Name', form.name.trim());
         fd.append('Price', String(form.price));
         fd.append('Description', form.description.trim());
         fd.append('Category', form.category.trim());
+
+        fd.append('DiscountStart', new Date(form.discountStart).toISOString());
+        fd.append('DiscountEnd', new Date(form.discountEnd).toISOString());
 
         if(file) fd.append("Image", file)
         try {
@@ -121,6 +137,35 @@ export default function ProductCreate () {
                         maxLength={100}
                     />
                 </div>
+
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="discountStart">
+                        Discount Start
+                    </label>
+                    <input
+                        id="discountStart"
+                        name="discountStart"
+                        type="datetime-local"
+                        className="form-control"
+                        value={form.discountStart}
+                        onChange={onChange}
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label" htmlFor="discountEnd">
+                        Discount Start
+                    </label>
+                    <input
+                        id="discountEnd"
+                        name="discountEnd"
+                        type="datetime-local"
+                        className="form-control"
+                        value={form.discountEnd}
+                        onChange={onChange}
+                    />
+                </div>
+
                 <div className="mb-4">
                     <label className="form-label" htmlFor="image">
                         Image
