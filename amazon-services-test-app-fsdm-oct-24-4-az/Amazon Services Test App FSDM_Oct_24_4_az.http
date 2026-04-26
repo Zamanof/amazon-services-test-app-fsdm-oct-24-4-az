@@ -1,6 +1,0 @@
-@Amazon_Services_Test_App_FSDM_Oct_24_4_az_HostAddress = http://localhost:5062
-
-GET {{Amazon_Services_Test_App_FSDM_Oct_24_4_az_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
